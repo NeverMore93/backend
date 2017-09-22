@@ -13,29 +13,61 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'idea'
+apply plugin: "maven"
+apply plugin: 'groovy'
 
 group = 'com.peini'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
 	mavenCentral()
+    maven { url "https://repo.spring.io/libs-release" }
 }
 
 
 dependencies {
-
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.38'
+
     compile group: 'org.hibernate', name: 'ejb3-persistence', version: '1.0.2.GA', ext: 'pom'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
 	compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.10.Final'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.6.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '1.5.3.RELEASE'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '1.3.5.RELEASE', ext: 'pom'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '1.5.4.RELEASE'
+
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '1.5.2.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '1.5.2.RELEASE', ext: 'pom'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '1.5.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '1.5.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.5.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '1.5.2.RELEASE'
+
+    compile group: 'org.springframework', name: 'spring-tx', version: '4.3.11.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.11.RELEASE'
+    compile group: 'org.springframework', name: 'spring-beans', version: '4.3.11.RELEASE'
+
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.10'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.10'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.10'
+
+    compile group: 'org.apache.shiro', name: 'shiro-core', version: '1.3.2'
+    compile group: 'org.apache.shiro', name: 'shiro-web', version: '1.3.2'
+    compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.3.2'
+    compile group: 'org.apache.shiro', name: 'shiro-ehcache', version: '1.3.2'
+
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.7'
+    compile group: 'org.codehaus.groovy', name: 'groovy', version: '2.4.7'
+
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.4.1'
+    compile group: 'org.mybatis', name: 'mybatis-spring', version: '1.3.0'
+
+    compile group: 'com.google.guava', name: 'guava', version: '23.0'
+
     compileOnly ('org.projectlombok:lombok:1.16.16')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("junit:junit")
 }
