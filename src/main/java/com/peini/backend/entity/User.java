@@ -19,6 +19,11 @@ import java.util.Date;
 @Embeddable
 public class User implements Serializable{
     private static final long serialVersionUID = -1L;
+
+    public enum Gender {
+        MALE, FEMALE
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -41,4 +46,9 @@ public class User implements Serializable{
     @Column(name = "registered_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date registeredDate;
+
+    @Column(name = "gender")
+    private Gender gender;
+
+
 }
