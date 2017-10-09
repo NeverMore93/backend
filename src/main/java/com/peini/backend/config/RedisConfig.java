@@ -1,8 +1,10 @@
 package com.peini.backend.config;
 
 
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -16,9 +18,18 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(){
-        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+    public RedisTemplate<Object, Object> redisTemplate(){
+        RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactory());
         return template;
+    }
+
+    @Bean
+    public CacheManager cacheManager() {
+        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate());
+        cacheManager.setTransactionAware(true);
+        cacheManager.setLoadRemoteCachesOnStartup(true);
+        cacheManager.setUsePrefix(true);
+        return cacheManager;
     }
 }

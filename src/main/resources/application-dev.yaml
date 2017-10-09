@@ -41,6 +41,8 @@ shiro:
 logging:
   level:
     org:
+      apache:
+        shiro: debug
       hibernate:
         SQL: debug
 

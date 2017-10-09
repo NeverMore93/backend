@@ -2,6 +2,12 @@ package com.peini.backend.controller;
 
 import com.peini.backend.entity.User;
 import com.peini.backend.service.AccountService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +17,9 @@ import java.util.List;
 
 @RestController
 public class AccountController {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Resource
     private AccountService accountService;
 
@@ -48,5 +57,21 @@ public class AccountController {
     @PostMapping("/getUserByUserName/{userName}")
     public User getUserByUserName(@PathVariable("userName") String userName) {
         return accountService.getUserByUserName(userName);
+    }
+
+    @PostMapping("/login")
+    public String login(String username, String password) {
+        Subject currentUser = SecurityUtils.getSubject();
+        if (StringUtils.hasText(username) && StringUtils.hasText(password)) {
+            try {
+                currentUser.login(new UsernamePasswordToken(username, password));
+            } catch (Exception e) {
+                logger.error(e.getLocalizedMessage(), e);
+                return "login";
+            }
+            return "redirect:index";
+        } else {
+            return "login";
+        }
     }
 }

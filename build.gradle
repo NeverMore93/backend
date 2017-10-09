@@ -57,6 +57,7 @@ dependencies {
     compile group: 'org.apache.shiro', name: 'shiro-web', version: '1.3.2'
     compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.3.2'
     compile group: 'org.apache.shiro', name: 'shiro-ehcache', version: '1.3.2'
+    compile group: 'org.apache.shiro', name: 'shiro-quartz', version: '1.3.2'
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 
@@ -69,6 +70,8 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '23.0'
 
     compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.193'
 
     compileOnly ('org.projectlombok:lombok:1.16.16')
 
