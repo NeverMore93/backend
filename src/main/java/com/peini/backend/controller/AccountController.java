@@ -7,6 +7,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,13 @@ public class AccountController {
 
     @Resource
     private AccountService accountService;
+
+    @Resource(name="redisTemplate")
+    private RedisTemplate<String, Object> redisTemplate;
+
+
+//    @Resource(name="redisTemplate")
+//    private ListOperations<Object, Object> listOps;
 
 
 //    test/id

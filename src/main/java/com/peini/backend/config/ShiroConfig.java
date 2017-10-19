@@ -15,6 +15,7 @@ import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.filter.authc.UserFilter;
 import org.apache.shiro.web.filter.authz.RolesAuthorizationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -69,27 +70,27 @@ public class ShiroConfig {
         return shiroFilter;
     }
 
-    @Bean(name = "securityManager")
-    public DefaultWebSecurityManager securityManager() {
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(jdbcRealm());
-        return securityManager;
-    }
-
-    
-    @Autowired
-    private org.apache.tomcat.jdbc.pool.DataSource dataSource;
-
-    @Bean(name = "realm")
-    @DependsOn("lifecycleBeanPostProcessor")
-    public JdbcRealm jdbcRealm() {
-        JdbcRealm realm = new JdbcRealm();
-        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
-        credentialsMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
-        realm.setCredentialsMatcher(credentialsMatcher);
-        realm.setDataSource(dataSource);
-        realm.init();
-        return realm;
-    }
+//    @Bean(name = "securityManager")
+//    public DefaultWebSecurityManager securityManager() {
+//        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+//        securityManager.setRealm(jdbcRealm());
+//        return securityManager;
+//    }
+//
+//
+//    @Autowired
+//    private DataSource dataSource;
+//
+//    @Bean(name = "realm")
+//    @DependsOn("lifecycleBeanPostProcessor")
+//    public JdbcRealm jdbcRealm() {
+//        JdbcRealm realm = new JdbcRealm();
+//        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+//        credentialsMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
+//        realm.setCredentialsMatcher(credentialsMatcher);
+//        realm.setDataSource(dataSource);
+//        realm.init();
+//        return realm;
+//    }
 
 }
