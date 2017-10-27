@@ -45,6 +45,3 @@ logging:
         shiro: debug
       hibernate:
         SQL: debug
-
-mybatis:
-  mapper-locations:

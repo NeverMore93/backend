@@ -2,6 +2,7 @@ package com.peini.backend.entity;
 
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -18,6 +20,7 @@ import java.util.List;
 @ToString
 @Table(name = "user")
 @Embeddable
+@org.hibernate.annotations.Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable{
     private static final long serialVersionUID = -1L;
 
@@ -57,7 +60,7 @@ public class User implements Serializable{
     
     @ManyToMany(fetch= FetchType.EAGER)//立即从数据库中进行加载数据;
     @JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "uid") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
-    private List<Role> roleList;// 一个用户具有多个角色
+    private Set<Role> roles = new HashSet<Role>();// 一个用户具有多个角色
 
 
 

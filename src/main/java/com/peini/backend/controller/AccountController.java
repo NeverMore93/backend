@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 public class AccountController {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
     @Resource
     private AccountService accountService;
