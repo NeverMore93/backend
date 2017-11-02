@@ -28,22 +28,6 @@ public class AccountController {
     private RedisTemplate<String, Object> redisTemplate;
 
 
-//    @Resource(name="redisTemplate")
-//    private ListOperations<Object, Object> listOps;
-
-
-//    test/id
-    @RequestMapping(value = "/test/{id}",method = RequestMethod.GET)
-    public String test(@PathVariable("id") Integer id){
-        return id+"";
-    }
-
-    //test?id={id}
-    @GetMapping("/test")
-    public String test2(@RequestParam(value = "id",required = false,defaultValue = "0") Integer id){
-        return "test"+id;
-    }
-
     @PostMapping("/registered")
     public User registered(@RequestBody @Validated User user) {
         Date date = new Date();

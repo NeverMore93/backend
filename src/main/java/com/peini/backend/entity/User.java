@@ -1,8 +1,10 @@
 package com.peini.backend.entity;
 
+import com.peini.backend.enums.Gender;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Component;
@@ -20,13 +22,9 @@ import java.util.Set;
 @ToString
 @Table(name = "user")
 @Embeddable
-@org.hibernate.annotations.Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable{
     private static final long serialVersionUID = -1L;
-
-    public enum Gender {
-        MALE, FEMALE
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

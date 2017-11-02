@@ -2,7 +2,6 @@ package com.peini.backend.service;
 
 import com.peini.backend.dao.AccountDao;
 import com.peini.backend.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ public class AccountServiceImpl implements AccountService {
     @Resource
     private AccountDao accountDao;
 
-    @Autowired
+    @Resource
     private RedisTemplate<String, String> redisTemplate;
 
 

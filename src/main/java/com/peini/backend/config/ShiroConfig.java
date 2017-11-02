@@ -1,9 +1,9 @@
 package com.peini.backend.config;
 
+import com.peini.backend.common.MyRealm;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.realm.text.TextConfigurationRealm;
-import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
@@ -22,27 +22,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@Slf4j(topic = "ShiroConfig")
 public class ShiroConfig {
     private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
-    @Bean
-    public static LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
-    }
+//    @Bean(name = "lifecycleBeanPostProcessor")
+//    public static LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+//        return new LifecycleBeanPostProcessor();
+//    }
 
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilter() {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setLoginUrl("/login");
-        shiroFilter.setSuccessUrl("/index");
+        shiroFilter.setSuccessUrl("/success");
         shiroFilter.setUnauthorizedUrl("/forbidden");
-        Map<String, String> filterChainDefinitionMapping = new HashMap<String, String>();
+        Map<String, String> filterChainDefinitionMapping = new HashMap<>();
         filterChainDefinitionMapping.put("/", "anon");
         filterChainDefinitionMapping.put("/home", "authc,roles[guest]");
         filterChainDefinitionMapping.put("/admin", "authc,roles[admin]");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
         shiroFilter.setSecurityManager(securityManager());
-        Map<String, Filter> filters = new HashMap<String, Filter>();
+        Map<String, Filter> filters = new HashMap<>();
         filters.put("anon", new AnonymousFilter());
         filters.put("authc", new FormAuthenticationFilter());
         filters.put("logout", new LogoutFilter());
@@ -61,12 +62,18 @@ public class ShiroConfig {
 
     @Bean(name = "realm")
     public Realm realm() {
-        TextConfigurationRealm realm = new TextConfigurationRealm();
-//        realm.setUserDefinitions("");
-//        realm.setRoleDefinitions("");
+        MyRealm realm = new MyRealm();
+//        realm.setCacheManager();
         realm.setCachingEnabled(true);
         return realm;
     }
+
+//    @Bean(name = "authorizationAttributeSourceAdvisor")
+//    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(){
+//        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+//        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
+//        return authorizationAttributeSourceAdvisor;
+//    }
 
 
 

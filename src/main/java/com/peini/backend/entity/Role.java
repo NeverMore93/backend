@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name="roles")
+@Table(name="role")
 @Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
 public class Role implements Serializable {
     private static final long serialVersionUID = -1L;

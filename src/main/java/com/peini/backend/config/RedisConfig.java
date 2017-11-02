@@ -1,8 +1,7 @@
 package com.peini.backend.config;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +10,10 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
 @Configuration
+@Slf4j(topic = "RedisConfig")
 public class RedisConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
+//    private static final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
 
     @Bean(name = "jedisConnectionFactory")
     public JedisConnectionFactory jedisConnectionFactory() {
@@ -26,7 +26,7 @@ public class RedisConfig {
     public RedisTemplate<String, Object> redisTemplate(){
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         if (null == jedisConnectionFactory()) {
-            logger.error("Redis template service is not available");
+            log.error("Redis template service is not available");
             return null;
         };
         redisTemplate.setConnectionFactory(jedisConnectionFactory());

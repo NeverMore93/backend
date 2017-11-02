@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository
 @Mapper
 @Slf4j
 @Component
-interface AccountDao extends JpaRepository<User, Long> {
-
+interface AccountDao extends JpaRepository<User, Long>{
     User findByEmail(String email);
     User findByUserName(String userName);
+    User findById(Long ID)
 }
