@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class,JpaRepositoriesAutoConfiguration.class},scanBasePackages={"com.peini.backend"})
 @EnableTransactionManagement
-@EnableJpaRepositories("com.peini.backend.dao")
+@EnableJpaRepositories(basePackages = "com.peini.backend.dao")
 public class BackendApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

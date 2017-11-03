@@ -26,7 +26,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public User getUserByEmail(String email) {
 
-        return accountDao.findByEmail(email);
+        return accountDao.findByRegisterEmail(email);
     }
 
     @Override

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository
 @Slf4j
 @Component
 interface AccountDao extends JpaRepository<User, Long>{
-    User findByEmail(String email);
+    User findByRegisterEmail(String email);
     User findByUserName(String userName);
     User findById(Long ID)
 }

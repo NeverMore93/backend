@@ -4,6 +4,8 @@ import com.peini.backend.common.MyRealm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
@@ -12,10 +14,9 @@ import org.apache.shiro.web.filter.authc.UserFilter;
 import org.apache.shiro.web.filter.authz.RolesAuthorizationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.WebSecurityManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -24,12 +25,11 @@ import java.util.Map;
 @Configuration
 @Slf4j(topic = "ShiroConfig")
 public class ShiroConfig {
-    private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
-//    @Bean(name = "lifecycleBeanPostProcessor")
-//    public static LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-//        return new LifecycleBeanPostProcessor();
-//    }
+    @Bean(name = "lifecycleBeanPostProcessor")
+    public static LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
+    }
 
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilter() {
@@ -61,6 +61,7 @@ public class ShiroConfig {
 
 
     @Bean(name = "realm")
+    @DependsOn("lifecycleBeanPostProcessor")
     public Realm realm() {
         MyRealm realm = new MyRealm();
 //        realm.setCacheManager();
@@ -68,12 +69,12 @@ public class ShiroConfig {
         return realm;
     }
 
-//    @Bean(name = "authorizationAttributeSourceAdvisor")
-//    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(){
-//        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-//        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
-//        return authorizationAttributeSourceAdvisor;
-//    }
+    @Bean(name = "authorizationAttributeSourceAdvisor")
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(){
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
+        return authorizationAttributeSourceAdvisor;
+    }
 
 
 

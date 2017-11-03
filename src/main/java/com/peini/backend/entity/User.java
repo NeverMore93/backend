@@ -39,7 +39,7 @@ public class User implements Serializable{
     @Email
     @Column(name = "email",unique = true)
     @Size(min = 5, max = 80)
-    private String email;
+    private String registerEmail;
 
     @Column(name = "password")
     @Size(min = 6, max = 20)
